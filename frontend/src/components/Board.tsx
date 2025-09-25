@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface Props {
   board: (string | null)[];
   onCellClick: (pos: number) => void;
