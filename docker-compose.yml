@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: triqui
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: root
+      DB_NAME: triqui
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    environment:
+      VITE_SERVER_URL: http://localhost:4000
+    command: npm run dev -- --host
+
+volumes:
+  db_data:
