@@ -1,4 +1,4 @@
-const stats = {}; // { playerName: { wins: number } }
+const stats = {};
 
 function updateStats(playerName) {
   if (!stats[playerName]) {

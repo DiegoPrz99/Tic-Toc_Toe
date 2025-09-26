@@ -135,7 +135,7 @@ io.on("connection", (socket) => {
       }
 
       room.players.push({ id: socket.id, name: userId, symbol: 'O' });
-      console.log(`🙋 Usuario ${userId} se unió a la sala ${roomId}`);
+      console.log(`Usuario ${userId} se unió a la sala ${roomId}`);
       socket.join(roomId);
       if (ack) ack({ ok: true, roomId, symbol: 'O' });
       socket.emit('room_joined', { roomId, symbol: 'O' });
@@ -158,7 +158,7 @@ io.on("connection", (socket) => {
       room.status = "playing";
       room.game = createGame(roomId);
 
-      console.log(`🎮 Juego iniciado en sala ${roomId}`);
+      console.log(`Juego iniciado en sala ${roomId}`);
 
       if (ack) ack({ ok: true });
       io.emit("game_started", room.game);
@@ -234,12 +234,12 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
-        console.log("❌ Cliente desconectado:", socket.id);
+        console.log("Cliente desconectado:", socket.id);
     });
 });
 
 // ---------------- Server ----------------
 const PORT = 4000;
 server.listen(PORT, () => {
-  console.log(`✅ Backend corriendo en http://localhost:${PORT}`);
+  console.log(`Backend corriendo en http://localhost:${PORT}`);
 });
